@@ -1,0 +1,31 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"declaration": true,
+		"moduleResolution": "node",
+		"module": "commonjs",
+		"outDir": "build/",
+		"lib": [
+			"es2017"
+		],
+		"typeRoots": [
+			"/@types/"
+		],
+		"types": [
+			"node",
+		],
+		"forceConsistentCasingInFileNames": true,
+		"pretty": false,
+		"target": "ES2020",
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"disableSizeLimit": true,
+		"allowJs": false,
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	},
+	"include": ["src/"],
+	"exclude": ["node_modules/"]
+}

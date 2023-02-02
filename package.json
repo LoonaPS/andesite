@@ -1,0 +1,21 @@
+{
+  "name": "@loonaps/andesite",
+  "version": "0.0.1-rc1",
+  "description": "Definitions and tools used for LoonaPS made into a TypeScript/JavaScript module.",
+  "repository": "https://github.com/LoonaPS/andesite",
+  "author": "Sebsa <contact@ectora.cf>",
+  "contributors": [
+    "Chester <teamtdm567@gmail.com>"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "dependencies": {
+    "@protobuf-ts/runtime": "^2.8.2",
+    "google-protobuf": "^3.21.2"
+  },
+  "devDependencies": {
+    "@protobuf-ts/plugin": "^2.8.2",
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.5"
+  }
+}

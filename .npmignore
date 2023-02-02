@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+tsconfig.json
+pnpm-**.yaml
+.gitignore
+README.md
+/lib/
