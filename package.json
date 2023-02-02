@@ -9,9 +9,14 @@
   ],
   "license": "ISC",
   "main": "index.js",
+  "scripts": {
+    "protocompile": "npx protoc --proto_path resources --ts_out resources --ts_opt output_typescript ServiceProtocolBuffers.proto"
+  },
   "dependencies": {
     "@protobuf-ts/runtime": "^2.8.2",
-    "google-protobuf": "^3.21.2"
+    "google-protobuf": "^3.21.2",
+    "long": "^5.2.1",
+    "protobufjs": "^7.2.0"
   },
   "devDependencies": {
     "@protobuf-ts/plugin": "^2.8.2",

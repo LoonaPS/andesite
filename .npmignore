@@ -2,5 +2,6 @@ pnpm-lock.yaml
 tsconfig.json
 pnpm-**.yaml
 .gitignore
+resources/
 README.md
-/lib/
+src/

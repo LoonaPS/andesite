@@ -1,0 +1,256 @@
+syntax = "proto3";
+package com.yonakaps.package;
+
+message GetDbGateOperationalDataReq {
+	bool list_service_infos = 1;
+}
+
+message GetDbGateOperationalDataRsp {
+	int32 retcode = 1;
+	bool db_connected = 2;
+	uint32 connected_service_count = 3;
+	repeated ServiceBasicInfo service_infos = 4;
+	uint32 total_queries_performed = 5;
+	uint32 total_failed_queries = 6;
+	uint32 total_succ_queries = 8;
+	OperationalData performance_stats = 9;
+}
+
+message InitializeConnectionReq {
+	ServiceType service_type = 1;
+	int64 dbgate_client_time = 2;
+}
+
+message InitializeConnectionRsp {
+	int64 dbgate_server_time = 2;
+}
+
+message ServicePingAckReq {
+	PingTransaction transaction = 1;
+	PingTransactionType transaction_type = 2;
+}
+
+message ServicePingAckRsp {
+	uint32 acknowledge_ms = 1;
+	PingTransactionType transaction_type = 2;
+}
+
+message ServiceHeartBeatNotify {
+	PingTransaction transaction = 1;
+	PingTransactionType transaction_type = 2;
+}
+
+message GetSessionDataReq {
+	string session_key = 1;
+	string from_uid = 2;
+}
+
+message GetSessionDataRsp {
+	int32 retcode = 1;
+	Session session = 2;
+}
+
+message UpdateSessionDataReq {
+	string session_key = 1;
+	string from_uid = 2;
+	Session session_data = 4;
+	bool delete_session = 3;
+}
+
+message UpdateSessionDataRsp {
+	int32 retcode = 1;
+}
+
+message GetAccountDataReq {
+	string from_uid = 1;
+	string username = 2;
+}
+
+message GetAccountDataRsp {
+	int32 retcode = 1;
+	Account account = 2;
+}
+
+message UpdateAccountDataReq {
+	string uid = 2;
+	Account account_data = 4;
+	bool delete_account = 3;
+}
+
+message UpdateAccountDataRsp {
+	int32 retcode = 1;
+}
+
+message GetPlayerDataReq {
+	string uid = 1;
+}
+
+message GetPlayerDataRsp {
+	int32 retcode = 1;
+	Player player = 2;
+}
+
+message UpdatePlayerDataReq {
+	string uid = 2;
+	Player player_data = 4;
+	bool delete_player = 3;
+}
+
+message UpdatePlayerDataRsp {
+	int32 retcode = 1;
+}
+
+message GetPlayerMailCollectionReq {}
+message GetPlayerMailCollectionRsp {}
+message UpdatePlayerMailCollectionReq {}
+message UpdatePlayerMailCollectionRsp {}
+
+message GetPlayerAvatarCollectionReq {}
+message GetPlayerAvatarCollectionRsp {}
+message UpdateAvatarDataCollectionReq {}
+message UpdateAvatarDataCollectionRsp {}
+
+message CommandExceptionNotify {
+	string command = 1;
+	bool is_command_invalid = 2;
+	bool is_data_malformed = 4;
+	string message = 3;
+}
+
+// types and enums
+
+message Player {
+	uint32 open_id = 1;
+	string nickname = 2;
+	string signature = 3;
+	PlayerProfilePicture profilePicture = 4;
+	map<string, uint32> props = 5;
+	uint64 registrationDate = 7;
+	uint32 nameCardId = 8;
+	uint32 travelerId = 9;
+	PlayerBirthday birthday = 10;
+}
+
+message Account {
+	string uid = 1;
+	string email = 5;
+	string username = 2;
+	string unique_token = 3;
+	string permission = 4;
+}
+
+message Session {
+	string endpoint = 1;
+	string device_id = 2;
+	uint64 time_to_live = 3;
+	string session_key = 4;
+	string for_uid = 5;
+}
+
+message PlayerProfilePicture {
+	uint32 avatar_id = 1;
+	uint32 costume_id = 2;
+}
+
+message PlayerBirthday {
+	uint32 month = 1;
+	uint32 day = 2;
+}
+
+message PingTransaction {
+	int64 creation_time = 1;
+	int64 acknowledge_time = 2;
+	bool is_transaction_acked = 4;
+}
+
+message ServiceBasicInfo {
+	bool is_alive = 2;
+	uint32 service_latency = 1;
+	ServiceType service_type = 3;
+	uint64 last_ping_transaction = 4;
+}
+
+message OperationalData {
+	uint64 memory_usage = 1;
+	string process_environment = 5;
+	uint32 memory_usage_percentage = 2;
+	uint64 overall_memory = 3;
+	uint64 dbgate_uptime = 6;
+	uint32 process_id = 4;
+}
+
+enum PingTransactionType {
+	FIRST_TRANSACTION = 0;
+	TRANSACTION_SUCC = 2;
+	IS_ALIVE = 1;
+}
+
+enum ServiceType {
+	SERVICE_TYPE_NONE = 0;
+	SERVICE_TYPE_CLIENT = 1;
+	SERVICE_TYPE_GATE = 2;
+	SERVICE_TYPE_GAME = 3;
+	SERVICE_TYPE_NODE = 4;
+	SERVICE_TYPE_DB = 5;
+	SERVICE_TYPE_SNS = 6;
+	SERVICE_TYPE_DISPATCH = 7;
+	SERVICE_TYPE_MUIP = 8;
+	SERVICE_TYPE_OFFLINE_MSG = 9;
+	SERVICE_TYPE_MAIL = 10;
+	SERVICE_TYPE_MP = 11;
+	SERVICE_TYPE_HTTPPROXY = 12;
+	SERVICE_TYPE_ACTIVITY = 13;
+	SERVICE_TYPE_PATHFINDING = 14;
+	SERVICE_TYPE_SOCIAL = 15;
+	SERVICE_TYPE_OA = 16;
+	SERVICE_TYPE_MATCH = 17;
+	SERVICE_TYPE_OFFLINE_OP = 18;
+	SERVICE_TYPE_TOTHEMOON = 19;
+	SERVICE_TYPE_GCG = 20;
+}
+
+enum DbGateOpcodes {
+	OP_SUCC = 0;
+	OP_FAIL = -1;
+	OP_SVR_ERROR = 1;
+	OP_UNKNOWN_ERROR = 2;
+	OP_FREQUENT = 3;
+	OP_NODE_FORWARD_ERROR = 4;
+	OP_NOT_FOUND_CONFIG = 5;
+	OP_SYSTEM_BUSY = 6;
+	OP_GM_UID_BIND = 7;
+	OP_FORBIDDEN = 8;
+	OP_STOP_REGISTER = 10;
+	OP_STOP_SERVER = 11;
+	OP_ACCOUNT_VEIRFY_ERROR = 12;
+	OP_ACCOUNT_FREEZE = 13;
+	OP_REPEAT_LOGIN = 14;
+	OP_CLIENT_VERSION_ERROR = 15;
+	OP_TOKEN_ERROR = 16;
+	OP_ACCOUNT_NOT_EXIST = 17;
+	OP_WAIT_OTHER_LOGIN = 18;
+	OP_ANOTHER_LOGIN = 19;
+	OP_CLIENT_FORCE_UPDATE = 20;
+	OP_BLACK_UID = 21;
+	OP_LOGIN_DB_FAIL = 22;
+	OP_LOGIN_INIT_FAIL = 23;
+	OP_MYSQL_DUPLICATE = 24;
+	OP_MAX_PLAYER = 25;
+	OP_ANTI_ADDICT = 26;
+	OP_PS_PLAYER_WITHOUT_ONLINE_ID = 27;
+	OP_ONLINE_ID_NOT_FOUND = 28;
+	OP_ONLNE_ID_NOT_MATCH = 29;
+	OP_REGISTER_IS_FULL = 30;
+	OP_CHECKSUM_INVALID = 31;
+	OP_BLACK_REGISTER_IP = 32;
+	OP_EXCEED_REGISTER_RATE = 33;
+	OP_UNKNOWN_PLATFORM = 34;
+	OP_TOKEN_PARAM_ERROR = 35;
+	OP_ANTI_OFFLINE_ERROR = 36;
+	OP_BLACK_LOGIN_IP = 37;
+	OP_GET_TOKEN_SESSION_HAS_UID = 38;
+	OP_ENVIRONMENT_ERROR = 39;
+	OP_CHECK_CLIENT_VERSION_HASH_FAIL = 40;
+	OP_MINOR_REGISTER_FOBIDDEN = 41;
+	OP_SECURITY_LIBRARY_ERROR = 42;
+}
