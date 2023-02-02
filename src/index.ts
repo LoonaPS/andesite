@@ -3,6 +3,7 @@ import * as GatewayProtocolBuffers from "./lib/GatewayProtocolBuffers";
 
 export default {
 	Protobuf: {
-		Server: ServerProtocolBuffers
+		Server: ServerProtocolBuffers,
+		Gateway: GatewayProtocolBuffers
 	}
 };
