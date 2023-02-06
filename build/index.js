@@ -23,12 +23,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ServerProtocolBuffers = __importStar(require("./lib/ServerProtocolBuffers"));
-const GatewayProtocolBuffers = __importStar(require("./lib/GatewayProtocolBuffers"));
-exports.default = {
-    Protobuf: {
-        Server: ServerProtocolBuffers,
-        Gateway: GatewayProtocolBuffers
-    }
-};
+exports.DatabaseGateway = exports.GatewayProtocolBuffers = exports.ServerProtocolBuffers = void 0;
+exports.ServerProtocolBuffers = __importStar(require("./lib/ServerProtocolBuffers"));
+exports.GatewayProtocolBuffers = __importStar(require("./lib/GatewayProtocolBuffers"));
+var gateway_1 = require("./gateway");
+Object.defineProperty(exports, "DatabaseGateway", { enumerable: true, get: function () { return gateway_1.DatabaseGateway; } });
 //# sourceMappingURL=index.js.map
